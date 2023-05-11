@@ -1,4 +1,4 @@
-Future = nil
+local Future = nil
 local gangstaAimEnabled = false
 
 Citizen.CreateThread(function()
@@ -32,14 +32,14 @@ Citizen.CreateThread(function()
             if IsPedArmed(PlayerPedId(), 7) and not IsPlayerFreeAiming(PlayerId()) then
                 ClearPedSecondaryTask(playerPed)
                 SetEnableHandcuffs(playerPed, false)
-            elseif IsPlayerFreeAiming(PlayerId()) and not IsEntityPlayingAnim(playerPed, "combat@aim_variations@1h@gang", "aim_variation_a", 3) then
-                RequestAnimDict("combat@aim_variations@1h@gang")
-                while (not HasAnimDictLoaded("combat@aim_variations@1h@gang")) do
+            elseif IsPlayerFreeAiming(PlayerId()) and not IsEntityPlayingAnim(playerPed, Config.aimanimdict, Config.aimanimdicttype, 3) then
+                RequestAnimDict(Config.aimanimdict)
+                while (not HasAnimDictLoaded(Config.aimanimdict)) do
                     Citizen.Wait(100)
                 end
 
                 SetEnableHandcuffs(playerPed, true)
-                TaskPlayAnim(playerPed, "combat@aim_variations@1h@gang", "aim_variation_a", 8.0, 2.5, -1, 49, 0, 0, 0, 0)
+                TaskPlayAnim(playerPed, Config.aimanimdict, Config.aimanimdicttype, 8.0, 2.5, -1, 49, 0, 0, 0, 0)
             end
         end
     end
